@@ -1,16 +1,21 @@
 package rest;
 
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class Simulations extends BaseAPI {
 
     @Test
+    @Order(1)
     public void ConsultarTodasSimulacoesVazia(){
 
         given()
@@ -22,6 +27,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(2)
     public void InserirUmaSimulacaoCorretamente(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -42,6 +48,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(3)
     public void InserirUmaSimulacaoComCPFInvalido(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -63,6 +70,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(4)
     public void InserirUmaSimulacaoComEmailErrado(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius");
@@ -83,6 +91,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(5)
     public void InserirUmaSimulacaoComValorMenor(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -103,6 +112,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(6)
     public void InserirUmaSimulacaoComValorMaior(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -123,6 +133,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(7)
     public void InserirUmaSimulacaoComParcelasMenor(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -143,6 +154,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(8)
     public void InserirUmaSimulacaoComParcelasMaior(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -163,6 +175,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(9)
     public void InserirUmaSimulacaoComSeguroInvalido(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -183,6 +196,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(10)
     public void InserirUmaSimulacaoJaExistente(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Vinicius Ferraz");
@@ -203,6 +217,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(11)
     public void AlterarUmaSimulacaoJaExistente(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Alteracao");
@@ -223,6 +238,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(12)
     public void AlterarUmaSimulacaoNaoExistente(){
         Map<String, Object> params = new HashMap<String, Object>();
             params.put("nome", "Alterar nao existente");
@@ -243,11 +259,13 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(13)
     public void ConsultarTodasSimulacoes(){
         consultarSimulacoes();
     }
 
     @Test
+    @Order(14)
     public void ConsultarSimulacaoPeloCPF(){
 
         given()
@@ -258,6 +276,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(15)
     public void ConsultarSimulacaoPeloCPFNaoExistente(){
 
         given()
@@ -269,6 +288,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(16)
     public void RemoverUmaSimulacao(){
         Integer id = InserirSimulacaoEextrairID();
 
@@ -282,6 +302,7 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
+    @Order(17)
     public void RemoverUmaSimulacaoNaoExistente(){
 
         given()
