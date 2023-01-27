@@ -188,7 +188,7 @@ public class Simulations extends BaseAPI {
             params.put("cpf", 55402394075L);
             params.put("email", "email@email.com");
             params.put("valor", 1200);
-            params.put("parcelas", 3);
+            params.put("parcelas", 2);
             params.put("seguro", true);
 
         given()
