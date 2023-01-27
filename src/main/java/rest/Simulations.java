@@ -2,6 +2,9 @@ package rest;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.*;
 
 
@@ -20,17 +23,17 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void InserirUmaSimulacaoCorretamente(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 55402394075L);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 55402394075,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
                 .contentType(ContentType.JSON)
+                .body(params)
                 .when()
                     .post("/simulacoes")
                 .then()
@@ -40,16 +43,16 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void InserirUmaSimulacaoComCPFInvalido(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 123);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 123,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
@@ -59,17 +62,37 @@ public class Simulations extends BaseAPI {
     }
 
     @Test
-    public void InserirUmaSimulacaoComValorMenor(){
+    public void InserirUmaSimulacaoComEmailErrado(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius");
+            params.put("cpf", 12345678900L);
+            params.put("email", "email@");
+            params.put("valor", 1200);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 12345,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 999,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/simulacoes")
+                .then()
+                .statusCode(400)
+                .log().all();
+    }
+
+    @Test
+    public void InserirUmaSimulacaoComValorMenor(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 12345);
+            params.put("email", "email@email.com");
+            params.put("valor", 999);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
+
+        given()
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
@@ -80,16 +103,16 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void InserirUmaSimulacaoComValorMaior(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 123456);
+            params.put("email", "email@email.com");
+            params.put("valor", 41000);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 123456,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 41000,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
@@ -100,16 +123,16 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void InserirUmaSimulacaoComParcelasMenor(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 1234567);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 1);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 1234567,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 1,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
@@ -120,16 +143,16 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void InserirUmaSimulacaoComParcelasMaior(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 1234567890);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 49);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 1234567890,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 49,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
@@ -140,57 +163,36 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void InserirUmaSimulacaoComSeguroInvalido(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 12345678901L);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 49);
+            params.put("seguro", "errado");
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 12345678901,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": errado\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
                 .then()
                     .log().all()
                     .statusCode(400);
-
-    }
-
-    @Test
-    public void InserirUmaSimulacaoComEmailErrado(){
-
-        given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius \",\n" +
-                        "  \"cpf\": 12345678900,\n" +
-                        "  \"email\": \"email@\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
-                .contentType(ContentType.JSON)
-                .when()
-                    .post("/simulacoes")
-                .then()
-                    .statusCode(400)
-                    .log().all();
     }
 
     @Test
     public void InserirUmaSimulacaoJaExistente(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 55402394075L);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 55402394075,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
                 .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
@@ -201,16 +203,16 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void AlterarUmaSimulacaoJaExistente(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Alteracao");
+            params.put("cpf", 55402394075L);
+            params.put("email", "emailalterado@email.com");
+            params.put("valor", 3000);
+            params.put("parcelas", 5);
+            params.put("seguro", false);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Alteracao\",\n" +
-                        "  \"cpf\": 55402394075,\n" +
-                        "  \"email\": \"emailalterado@email.com\",\n" +
-                        "  \"valor\": 40.000,\n" +
-                        "  \"parcelas\": 30,\n" +
-                        "  \"seguro\": false\n" +
-                        "}")
+                .body(params)
                 .contentType(ContentType.JSON)
                 .when()
                     .put("/simulacoes/55402394075")
@@ -221,16 +223,16 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void AlterarUmaSimulacaoNaoExistente(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Alterar nao existente");
+            params.put("cpf", 333999222);
+            params.put("email", "emailalterado@email.com");
+            params.put("valor", 40000);
+            params.put("parcelas", 30);
+            params.put("seguro", true);
 
         given()
-                .body("{\n" +
-                        "  \"nome\": \"Alterar nao existente\",\n" +
-                        "  \"cpf\": 333999222,\n" +
-                        "  \"email\": \"emailalterado@email.com\",\n" +
-                        "  \"valor\": 40.000,\n" +
-                        "  \"parcelas\": 30,\n" +
-                        "  \"seguro\": false\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .put("/simulacoes/333999222")
@@ -238,7 +240,6 @@ public class Simulations extends BaseAPI {
                     .log().all()
                     .statusCode(404);
     }
-
 
     @Test
     public void ConsultarTodasSimulacoes(){
@@ -268,7 +269,6 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void RemoverUmaSimulacao(){
-
         Integer id = InserirSimulacaoEextrairID();
 
         given()
@@ -301,16 +301,16 @@ public class Simulations extends BaseAPI {
     }
 
     public Integer InserirSimulacaoEextrairID(){
+        Map<String, Object> params = new HashMap<String, Object>();
+            params.put("nome", "Vinicius Ferraz");
+            params.put("cpf", 55402345353L);
+            params.put("email", "email@email.com");
+            params.put("valor", 1200);
+            params.put("parcelas", 3);
+            params.put("seguro", true);
 
         Integer id = given()
-                .body("{\n" +
-                        "  \"nome\": \"Vinicius Ferraz\",\n" +
-                        "  \"cpf\": 55402345353,\n" +
-                        "  \"email\": \"email@email.com\",\n" +
-                        "  \"valor\": 1200,\n" +
-                        "  \"parcelas\": 3,\n" +
-                        "  \"seguro\": true\n" +
-                        "}")
+                .body(params)
                     .contentType(ContentType.JSON)
                 .when()
                     .post("/simulacoes")
