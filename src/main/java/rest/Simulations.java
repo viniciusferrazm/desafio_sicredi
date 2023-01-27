@@ -57,8 +57,9 @@ public class Simulations extends BaseAPI {
                 .when()
                     .post("/simulacoes")
                 .then()
-                    .statusCode(400)
-                    .log().all();
+                    .log().all()
+                    .statusCode(400);
+
     }
 
     @Test
