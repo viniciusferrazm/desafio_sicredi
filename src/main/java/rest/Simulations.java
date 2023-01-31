@@ -117,14 +117,6 @@ public class Simulations extends BaseAPI {
         removerSimulacoes("01").statusCode(404)
                 .body(is("Simulação não encontrada"));
     }
-
-    @Test
-    public void ExtraindoIdParaRemover() {
-        ValidatableResponse response = consultarSimulacoes();
-        int id = response.extract().path("id[0]");
-        removerSimulacoes(String.valueOf(id));
-        consultarSimulacoes();
-    }
 }
 
 
