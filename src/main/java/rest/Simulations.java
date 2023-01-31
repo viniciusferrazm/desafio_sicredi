@@ -1,13 +1,7 @@
 package rest;
 
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static rest.Metodos.*;
@@ -90,8 +84,7 @@ public class Simulations extends BaseAPI {
 
     @Test
     public void ConsultarTodasSimulacoesVazia() {
-        removerSimulacoes("11");
-        consultarSimulacoes();
+        consultarSimulacoes().statusCode(204);
     }
 
     @Test
@@ -125,20 +118,12 @@ public class Simulations extends BaseAPI {
                 .body(is("Simulação não encontrada"));
     }
 
-    @ParameterizedTest
-    @CsvSource({"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"})
-    public void RemoverTodasSimulacoes(String id) {
-        removerSimulacoes(id);
-    }
-
     @Test
-    public void TesteRemover() {
+    public void ExtraindoIdParaRemover() {
         ValidatableResponse response = consultarSimulacoes();
-        JsonPath extrator = response.extract().jsonPath();
-        ArrayList <String> id = extrator.get("id");
-
-        System.out.println(id);
-
+        int id = response.extract().path("id[0]");
+        removerSimulacoes(String.valueOf(id));
+        consultarSimulacoes();
     }
 }
 
