@@ -24,7 +24,6 @@ public class Simulations extends BaseAPI {
     public void InserirUmaSimulacaoComCPFInvalido() {
         CriadorDeSimulacao simulacao = new CriadorDeSimulacao("Vinicius", 1234L, "viniciusferraz@email.com", 1500, 3, true);
         inserirSimulacao(simulacao).statusCode(400);
-
     }
 
     @Test
@@ -56,7 +55,6 @@ public class Simulations extends BaseAPI {
         CriadorDeSimulacao simulacao = new CriadorDeSimulacao("Vinicius", 67354839526L, "email@email.com", 21000, 49, false);
         inserirSimulacao(simulacao).statusCode(400);
     }
-
 
     @Test
     public void InserirUmaSimulacaoJaExistente() {
@@ -137,11 +135,10 @@ public class Simulations extends BaseAPI {
     public void TesteRemover() {
         ValidatableResponse response = consultarSimulacoes();
         JsonPath extrator = response.extract().jsonPath();
-        ArrayList<String> itensIds = extrator.get("id");
-        itensIds.toArray();
-        System.out.println(itensIds);
+        ArrayList <String> id = extrator.get("id");
 
-        //removerSimulacoes();
+        System.out.println(id);
+
     }
 }
 
