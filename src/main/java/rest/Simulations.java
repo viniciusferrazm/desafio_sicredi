@@ -1,7 +1,10 @@
 package rest;
 
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static rest.Metodos.*;
@@ -116,6 +119,18 @@ public class Simulations extends BaseAPI {
         consultarSimulacoes();
         removerSimulacoes("01").statusCode(404)
                 .body(is("Simulação não encontrada"));
+    }
+
+    @Test
+    public void RemoverTodasSimulacoesCadastradas(){
+        ValidatableResponse response = consultarSimulacoes();
+
+        do {
+            response = consultarSimulacoes();
+            Integer id = response.extract().path("id[0]");
+            removerSimulacoes(String.valueOf(id));
+        }
+        while (response.toString() != "[]");
     }
 }
 
