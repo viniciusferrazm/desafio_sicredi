@@ -3,8 +3,7 @@ DESAFIO SICREDI
 QA: Vinicius Ferraz do Amaral Mello
 Cargo: Analista de Testes e Automação Pleno
 
-
-As regras seguidas podem ser encontradas aqui: https://github.com/rh-southsystem/Sicredi-Digital-QA
+API desenvolvida pela Sicredi
 
 Considerações sobre os desafio que foram encontradas durante os testes:
 
